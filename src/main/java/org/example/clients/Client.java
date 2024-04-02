@@ -14,14 +14,19 @@ public class Client {
     private Long id;
 
     private String name;
-    private Integer cnp;
+    private String cnp;
     @OneToMany(mappedBy = "client")
     private Set<Rent> rentsSet = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(String name, Integer cnp, Set<Rent> rentsSet) {
+    public Client(String name, String cnp) {
+        this.name = name;
+        this.cnp = cnp;
+    }
+
+    public Client(String name, String cnp, Set<Rent> rentsSet) {
         this.name = name;
         this.cnp = cnp;
         this.rentsSet = rentsSet;
@@ -39,11 +44,11 @@ public class Client {
         this.name = name;
     }
 
-    public Integer getCnp() {
+    public String getCnp() {
         return cnp;
     }
 
-    public void setCnp(Integer cnp) {
+    public void setCnp(String cnp) {
         this.cnp = cnp;
     }
 

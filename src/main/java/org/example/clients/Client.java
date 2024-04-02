@@ -1,8 +1,10 @@
 package org.example.clients;
 
 import jakarta.persistence.*;
+import org.example.rents.Rent;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "clients")
@@ -14,12 +16,12 @@ public class Client {
     private String name;
     private Integer cnp;
     @OneToMany(mappedBy = "client")
-    private Set<Rents> rentsSet = new HashSet<>();
+    private Set<Rent> rentsSet = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(String name, Integer cnp, Set<Rents> rentsSet) {
+    public Client(String name, Integer cnp, Set<Rent> rentsSet) {
         this.name = name;
         this.cnp = cnp;
         this.rentsSet = rentsSet;
@@ -45,11 +47,11 @@ public class Client {
         this.cnp = cnp;
     }
 
-    public Set<Rents> getRentsSet() {
+    public Set<Rent> getRentsSet() {
         return rentsSet;
     }
 
-    public void setRentsSet(Set<Rents> rentsSet) {
+    public void setRentsSet(Set<Rent> rentsSet) {
         this.rentsSet = rentsSet;
     }
 }

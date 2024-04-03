@@ -19,6 +19,11 @@ public class ReviewDAO {
             entityManager.getTransaction().begin();
             entityManager.persist(review);
             entityManager.getTransaction().commit();
+        }
+            catch (Exception e) {
+                if (entityManager.getTransaction().isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
 
         } finally {
             if (entityManager.isOpen()) {

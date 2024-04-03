@@ -1,28 +1,38 @@
 package org.example.clients;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.example.utils.HibernateUtils;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 public class ClientDAO {
 
     private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
 
     public ClientDAO(){
-        //this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
     }
 
-    public void createClient(Client client) throws SQLException {
+    public void createClient(Client client){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(client);
-            entityManager.getTransaction().commit();
-        } finally {
-            if (entityManager.isOpen()) entityManager.close();
+        List<Client> clients = entityManager.createQuery("FROM Client", Client.class).getResultList();
+        if(clients.contains(client))
+        {
+            System.out.println("This client already exists");
+        }
+        else {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(client);
+                entityManager.getTransaction().commit();
+            } finally {
+                if (entityManager.isOpen()) entityManager.close();
+            }
         }
     }
 
@@ -37,7 +47,7 @@ public class ClientDAO {
     public boolean findClient(Client client) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
-            return (entityManager.find(Client.class, client.getCnp()))!=null;
+            return (entityManager.find(Client.class, client.getId())) != null;
         } finally {
             entityManager.close();
         }

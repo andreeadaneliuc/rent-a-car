@@ -3,13 +3,10 @@ package org.example.cars;
 import jakarta.persistence.*;
 import org.example.rents.Rent;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-@Table(name = "car")
+@Table(name = "cars")
 public class Car {
     @Id
     private String vin;
@@ -22,6 +19,9 @@ public class Car {
 
     @OneToMany(mappedBy = "car")
     private List<Rent> rent = new ArrayList<>();
+
+    public Car() {
+    }
 
     public Car(String vin) {
         this.vin = vin;
@@ -91,5 +91,17 @@ public class Car {
 
     public void setPretZi(Double pretZi) {
         this.pretZi = pretZi;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car car)) return false;
+        return Objects.equals(vin, car.vin);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vin);
     }
 }

@@ -6,9 +6,10 @@ import org.example.clients.Client;
 import org.example.reviews.Review;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "rent")
+@Table(name = "rents")
 public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,5 +110,17 @@ public class Rent {
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rent rent)) return false;
+        return Objects.equals(nrComanda, rent.nrComanda);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nrComanda);
     }
 }

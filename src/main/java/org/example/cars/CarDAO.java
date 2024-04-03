@@ -7,34 +7,34 @@ import org.example.clients.Client;
 import org.example.utils.HibernateUtils;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class CarDAO {
 
     private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
 
     public CarDAO(){
-        //this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
     }
 
     public void createCar(Car car){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-
-            System.out.println("Aceasta masina exista in baza de date");
-
+        List<Car> cars = entityManager.createQuery("FROM Car", Car.class).getResultList();
+        if(cars.contains(car))
+        {
+            System.out.println("This car already exists");
+        }
+        else{
             try {
                 entityManager.getTransaction().begin();
                 entityManager.persist(car);
                 entityManager.getTransaction().commit();
-            } catch (Exception e) {
-                System.out.println(e);
             } finally {
                 if (entityManager.isOpen()) {
                     entityManager.close();
                 }
             }
-
-
+        }
     }
 
     public Car getCarByVin(String vin) {

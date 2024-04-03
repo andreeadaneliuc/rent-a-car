@@ -1,11 +1,12 @@
 package org.example.reviews;
 
 import jakarta.persistence.*;
-import org.example.cars.Car;
 import org.example.rents.Rent;
 
+import java.util.Objects;
+
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +48,17 @@ public class Review {
 
     public void setNota(Integer nota) {
         this.nota = nota;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Review review)) return false;
+        return Objects.equals(nrComanda, review.nrComanda);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nrComanda);
     }
 }

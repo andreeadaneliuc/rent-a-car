@@ -1,15 +1,17 @@
 package org.example.cars;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.example.rents.Rent;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "cars")
+@Table(name = "car")
 public class Car {
     @Id
-    @OneToMany(mappedBy = "car")
     private String vin;
     private String marca;
     private String model;
@@ -17,6 +19,9 @@ public class Car {
     private Integer anFabricatie;
     private String culoare;
     private Double pretZi;
+
+    @OneToMany(mappedBy = "car")
+    private List<Rent> rent = new ArrayList<>();
 
     public Car(String vin) {
         this.vin = vin;

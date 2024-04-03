@@ -3,14 +3,14 @@ package org.example.reviews;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.example.clients.Client;
+//import org.example.clients.Client;
 
 public class ReviewDAO {
 
     private EntityManagerFactory entityManagerFactory;
 
     public ReviewDAO(){
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("yourPersistenceUnitName");
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
     }
 
     public void createReview(Review review){

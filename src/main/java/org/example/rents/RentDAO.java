@@ -3,14 +3,15 @@ package org.example.rents;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.example.clients.Client;
+import org.example.utils.HibernateUtils;
+//import org.example.clients.Client;
 
 public class RentDAO {
 
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
 
     public RentDAO(){
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("yourPersistenceUnitName");
+        //this.entityManagerFactory = Persistence.createEntityManagerFactory("name");
     }
 
     public void createRent(Rent rent){

@@ -1,26 +1,29 @@
 package org.example.reviews;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.example.cars.Car;
+import org.example.rents.Rent;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "review")
 public class Review {
     @Id
-    @OneToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nrComanda;
 
+    @OneToOne
+    @JoinColumn(name = "rent_id")
+    @MapsId
+    private Rent rent;
     private String text;
-    private Car car;
+
     private Integer nota;
 
-    public Review(Long nrComanda, String text, Car car, Integer nota) {
+
+    public Review(Long nrComanda, String text, Integer nota) {
         this.nrComanda = nrComanda;
         this.text = text;
-        this.car = car;
+
         this.nota = nota;
     }
 
@@ -36,9 +39,7 @@ public class Review {
         this.text = text;
     }
 
-    public Car getCar() {
-        return car;
-    }
+
 
     public Integer getNota() {
         return nota;

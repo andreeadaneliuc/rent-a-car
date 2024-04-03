@@ -8,14 +8,14 @@ import org.example.reviews.Review;
 import java.util.Date;
 
 @Entity
-@Table(name = "rents")
+@Table(name = "rent")
 public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nrComanda;
 
     @ManyToOne
-    @JoinColumn(name = "car_vin")
+    @JoinColumn(name = "car_id")
     private Car car;
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -25,13 +25,13 @@ public class Rent {
     private Double price;
     private String stare;
     private Double depozit;
-    @OneToOne
+    @OneToOne(mappedBy = "rent")
     private Review review;
 
     public Rent() {
     }
 
-    public Rent(Car car, Client client, Date startDate, Date endDate, Double price, String stare, Double depozit, Review review) {
+    public Rent(Car car, Client client,  Date startDate, Date endDate, Double price, String stare, Double depozit) {
         this.car = car;
         this.client = client;
         this.startDate = startDate;
@@ -39,7 +39,6 @@ public class Rent {
         this.price = price;
         this.stare = stare;
         this.depozit = depozit;
-        this.review = review;
     }
 
     public Long getNrComanda() {
@@ -53,6 +52,8 @@ public class Rent {
     public void setCar(Car car) {
         this.car = car;
     }
+
+
 
     public Client getClient() {
         return client;

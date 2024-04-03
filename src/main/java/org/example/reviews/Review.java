@@ -10,28 +10,27 @@ import java.util.Objects;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nrComanda;
+    private Long id;
 
     @OneToOne
-    @JoinColumn(name = "rent_id")
-    @MapsId
+    @JoinColumn(name = "nr_comanda")
     private Rent rent;
     private String text;
 
     private Integer nota;
 
+    public Review() {
+    }
 
-    public Review(Long nrComanda, String text, Integer nota) {
-        this.nrComanda = nrComanda;
+    public Review(Rent rent) {
+        this.rent = rent;
+    }
+
+    public Review(Rent rent, String text, Integer nota) {
+        this.rent = rent;
         this.text = text;
-
         this.nota = nota;
     }
-
-    public Long getNrComanda() {
-        return nrComanda;
-    }
-
     public String getText() {
         return text;
     }
@@ -39,8 +38,6 @@ public class Review {
     public void setText(String text) {
         this.text = text;
     }
-
-
 
     public Integer getNota() {
         return nota;
@@ -50,15 +47,23 @@ public class Review {
         this.nota = nota;
     }
 
+    public Rent getRent() {
+        return rent;
+    }
+
+    public void setRent(Rent rent) {
+        this.rent = rent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Review review)) return false;
-        return Objects.equals(nrComanda, review.nrComanda);
+        return Objects.equals(rent, review.rent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nrComanda);
+        return Objects.hash(rent);
     }
 }

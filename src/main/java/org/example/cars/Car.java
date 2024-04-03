@@ -104,4 +104,18 @@ public class Car {
     public int hashCode() {
         return Objects.hash(vin);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Car{");
+        sb.append("vin='").append(vin).append('\'');
+        sb.append(", marca='").append(marca).append('\'');
+        sb.append(", model='").append(model).append('\'');
+        sb.append(", motorizare='").append(motorizare).append('\'');
+        sb.append(", anFabricatie=").append(anFabricatie);
+        sb.append(", culoare='").append(culoare).append('\'');
+        sb.append(", pretZi=").append(pretZi);
+        sb.append('}');
+        return sb.toString();
+    }
 }

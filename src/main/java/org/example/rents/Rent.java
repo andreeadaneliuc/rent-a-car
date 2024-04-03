@@ -40,6 +40,7 @@ public class Rent {
         this.price = price;
         this.stare = stare;
         this.depozit = depozit;
+        //this.review = new Review(this);
     }
 
     public Long getNrComanda() {

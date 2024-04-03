@@ -42,6 +42,7 @@ public class RentDAO {
         }
     }
 
+
     public Rent getRentByNrComanda(Long nrComanda) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {

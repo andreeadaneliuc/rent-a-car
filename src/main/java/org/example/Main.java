@@ -18,13 +18,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-
-
         ClientDAO clientDAO = new ClientDAO();
         CarDAO carDAO = new CarDAO();
         RentDAO rentDAO = new RentDAO();
         ReviewDAO reviewDAO = new ReviewDAO();
-        //Client client1 = new Client("Test1", "12345678999000",new HashSet<>());
+        /*
+        Client client1 = new Client("Test1", "12345678999000",new HashSet<>());
         //Client client2 = new Client("Test2", "22345678999000",new HashSet<>());
         //clientDAO.createClient(client1);
         //clientDAO.createClient(client2);
@@ -41,19 +40,36 @@ public class Main {
         //System.out.println(rent.getNrComanda());
         //rentDAO.createRent(rent2);
         //System.out.println(rent2.getNrComanda());
-        //rentDAO.createRent(rent3);
-        Menu.printWelcomeMenu();
-        int option = pickOption();
+        rentDAO.createRent(rent3);
 
+         */
+        Menu.printWelcomeMenu();
+        Date startDate = new Date(2023,10,10);
+        Date endDate = new Date(2023,10,11);
+        Client client1 = new Client("Test1", "12345678999000",new HashSet<>());
+        clientDAO.createClient(client1);
+        Car car1 = new Car("12345687");
+        carDAO.createCar(car1);
+        Car car2 = new Car("12345687901231");
+        carDAO.createCar(car2);
+        Rent rent3 = new Rent(car1,client1,startDate,endDate,14.0,"Inactiv",10.0);
+        rentDAO.createRent(rent3);
+        int option = pickOption();
         while (option!=0)
         {
             switch (option)
             {
                 case 1:
-                    clientDAO.createClient(Menu.registerAClient());
+                    clientDAO.createClient(Menu.registerClient());
                     break;
                 case 3:
-                    carDAO.createCar(Menu.registerACar());
+                    carDAO.createCar(Menu.registerCar());
+                    break;
+                case 4:
+                    Menu.displayAllCars(carDAO);
+                    break;
+                case 5:
+                    reviewDAO.createReview(Menu.registerReview());
                     break;
                 default:
                     break;

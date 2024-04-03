@@ -76,4 +76,6 @@ public class ClientDAO {
             entityManager.close();
         }
     }
+
+
 }

@@ -16,6 +16,7 @@ public class Car {
     private Integer anFabricatie;
     private String culoare;
     private Double pretZi;
+    private boolean disponibila;
 
     @OneToMany(mappedBy = "car")
     private List<Rent> rent = new ArrayList<>();
@@ -27,7 +28,7 @@ public class Car {
         this.vin = vin;
     }
 
-    public Car(String vin, String marca, String model, String motorizare, Integer anFabricatie, String culoare, Double pretZi) {
+    public Car(String vin, String marca, String model, String motorizare, Integer anFabricatie, String culoare, Double pretZi, boolean disponibila) {
         this.vin = vin;
         this.marca = marca;
         this.model = model;
@@ -35,6 +36,15 @@ public class Car {
         this.anFabricatie = anFabricatie;
         this.culoare = culoare;
         this.pretZi = pretZi;
+        this.disponibila = disponibila;
+    }
+
+    public boolean getDisponibila() {
+        return disponibila;
+    }
+
+    public void setDisponibila(boolean disponibila) {
+        this.disponibila = disponibila;
     }
 
     public String getVin() {

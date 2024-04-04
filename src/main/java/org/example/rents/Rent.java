@@ -5,6 +5,8 @@ import org.example.cars.Car;
 import org.example.clients.Client;
 import org.example.reviews.Review;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,8 +23,8 @@ public class Rent {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Double price;
     private String stare;
     private Double depozit;
@@ -32,13 +34,22 @@ public class Rent {
     public Rent() {
     }
 
-    public Rent(Car car, Client client,  Date startDate, Date endDate, Double price, String stare, Double depozit) {
+    public Rent(Car car, Client client,  LocalDate startDate, LocalDate endDate, String stare, Double depozit) {
         this.car = car;
         this.client = client;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.price = price;
-        this.stare = stare;
+        this.price = car.getPretZi() * ChronoUnit.DAYS.between(startDate,endDate);
+        if(ChronoUnit.DAYS.between(LocalDate.now(), endDate) >= 0)
+        {
+            this.stare = "Activ";
+            this.car.setDisponibila(false);
+        }
+        else {
+            this.stare = "Inactiv";
+            this.car.setDisponibila(true);
+        }
+
         this.depozit = depozit;
         //this.review = new Review(this);
     }
@@ -65,19 +76,19 @@ public class Rent {
         this.client = client;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -85,24 +96,32 @@ public class Rent {
         return price;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setPrice() {
+        this.price = car.getPretZi() * ChronoUnit.DAYS.between(startDate,endDate);;
     }
 
     public String getStare() {
         return stare;
     }
 
-    public void setStare(String stare) {
-        this.stare = stare;
+    public void setStare() {
+        if(ChronoUnit.DAYS.between(LocalDate.now(), endDate) >= 0)
+        {
+            this.stare = "Activ";
+            this.car.setDisponibila(false);
+        }
+        else {
+            this.stare = "Inactiv";
+            this.car.setDisponibila(true);
+        };
     }
 
     public Double getDepozit() {
         return depozit;
     }
 
-    public void setDepozit(Double depozit) {
-        this.depozit = depozit;
+    public void setDepozit() {
+        this.depozit = price*0.05;
     }
 
     public Review getReview() {

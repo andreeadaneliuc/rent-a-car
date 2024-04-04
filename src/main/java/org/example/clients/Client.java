@@ -73,4 +73,14 @@ public class Client {
     public int hashCode() {
         return Objects.hash(cnp);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Client{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", cnp='").append(cnp).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

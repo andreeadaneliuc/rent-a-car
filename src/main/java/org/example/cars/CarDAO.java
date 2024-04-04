@@ -87,4 +87,14 @@ public class CarDAO {
         entityManager.close();
         return car;
     }
+    public List<Car> findAllAvailableCars() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT c").append(" FROM Car c WHERE c.disponibila = true");
+        String hql = stringBuilder.toString();
+        List<Car> car = entityManager.createQuery(hql, Car.class)
+                .getResultList();
+        entityManager.close();
+        return car;
+    }
 }

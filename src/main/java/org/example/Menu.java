@@ -11,32 +11,46 @@ import org.example.reviews.ReviewDAO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public static void main(String[] args) {
 
+    public static void printUserTypeSelectionMenu() {
+        System.out.println("Please choose one of the following options: ");
+        System.out.println("0 - End session");
+        System.out.println("1 - Sign in as administrator");
+        System.out.println("2 - Sign in as client");
     }
-
-    public static void printWelcomeMenu()
+    public static void printWelcomeMessage()
     {
         System.out.println("Welcome to the rent a car app!");
-        printMenu();
     }
-    public static void printMenu()
+    public static void printAdministratorMenu()
     {
         System.out.println("Please chose one of the following options:");
         System.out.println("0 - End session");
         System.out.println("1 - Register a client");
-        //System.out.println("2 - Display all clients");
+        System.out.println("2 - Display all clients");
         System.out.println("3 - Register a car");
         System.out.println("4 - Display all cars");
         System.out.println("5 - Register a review");
         System.out.println("6 - Display all reviews");
         System.out.println("7 - Display all available cars");
         System.out.println("8 - Rent a car");
+    }
+
+    public static void printClientMenu()
+    {
+        System.out.println("Please chose one of the following options:");
+        System.out.println("0 - End session");
+        System.out.println("1 - Register as a client");
+        System.out.println("2 - Register a car");
+        System.out.println("3 - Display all cars");
+        System.out.println("4 - Register a review");
+        System.out.println("5 - Display all reviews");
+        System.out.println("6 - Display all available cars");
+        System.out.println("7 - Rent a car");
     }
 
     //Option 1

@@ -18,8 +18,8 @@ public class HibernateUtils {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration()
                     .setProperty(Environment.DRIVER, "com.mysql.cj.jdbc.Driver")
-                    .setProperty(Environment.URL, "jdbc:mysql://localhost:3306/rent2")
-                    .setProperty(Environment.USER, "rent")
+                    .setProperty(Environment.URL, "jdbc:mysql://localhost:3306/rent_a_car")
+                    .setProperty(Environment.USER, "root")
                     .setProperty(Environment.PASS, "123456789")
                     .setProperty(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect")
                     .setProperty(Environment.HBM2DDL_AUTO, "update")

@@ -1,32 +1,22 @@
 package org.example;
 
-import org.example.cars.Car;
 import org.example.cars.CarDAO;
-import org.example.clients.Client;
 import org.example.clients.ClientDAO;
-import org.example.clients.ClientDAO;
-import org.example.rents.Rent;
 import org.example.rents.RentDAO;
-import org.example.reviews.Review;
 import org.example.reviews.ReviewDAO;
 
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    private static ClientDAO clientDAO = new ClientDAO();
+    private static CarDAO carDAO = new CarDAO();
+    private static RentDAO rentDAO = new RentDAO();
+    private static ReviewDAO reviewDAO = new ReviewDAO();
+
     public static void main(String[] args) throws SQLException {
-        ClientDAO clientDAO = new ClientDAO();
-        CarDAO carDAO = new CarDAO();
-        RentDAO rentDAO = new RentDAO();
-        ReviewDAO reviewDAO = new ReviewDAO();
+
         /*
         Client client1 = new Client("Test1", "12345678999000",new HashSet<>());
         //Client client2 = new Client("Test2", "22345678999000",new HashSet<>());
@@ -48,22 +38,51 @@ public class Main {
         rentDAO.createRent(rent3);
 
          */
-        Menu.printWelcomeMenu();
-        LocalDate startDate = LocalDate.of(2023,05,10);
-        LocalDate endDate = LocalDate.of(2023,11,10);
-        Client client1 = new Client("Test1", "12345678999000",new HashSet<>());
+        Menu.printWelcomeMessage();
+        /*
+        LocalDate startDate = LocalDate.of(2023, 05, 10);
+        LocalDate endDate = LocalDate.of(2023, 11, 10);
+        Client client1 = new Client("Test1", "12345678999000", new HashSet<>());
         clientDAO.createClient(client1);
-        Car car1 = new Car("123456878","marca","model","motorizare",1990,"rosu",10.0,true);
-        Car car2 = new Car("9876545312","marca2","model2","motorizare2",2024,"albastru",11.0,true);
+        Car car1 = new Car("123456878", "marca", "model", "motorizare", 1990, "rosu", 10.0, true);
+        Car car2 = new Car("9876545312", "marca2", "model2", "motorizare2", 2024, "albastru", 11.0, true);
         carDAO.createCar(car1);
         carDAO.createCar(car2);
-        Rent rent3 = new Rent(car1,client1,startDate,endDate,"Inactiv",10.0);
+        Rent rent3 = new Rent(car1, client1, startDate, endDate, "Inactiv", 10.0);
         rentDAO.createRent(rent3);
+         */
+
+        Menu.printUserTypeSelectionMenu();
+
         int option = pickOption();
-        while (option!=0)
-        {
-            switch (option)
-            {
+        while (option != 0) {
+            switch (option) {
+                case 1 -> printAdministratorMenu();
+                case 2 -> printClientMenu();
+            }
+
+            Menu.printUserTypeSelectionMenu();
+            option = pickOption();
+        }
+    }
+
+    private static int pickOption() {
+        boolean ok = true;
+        int result = -1;
+        Scanner scanner = new Scanner(System.in);
+        try {
+            result = scanner.nextInt();
+            return result;
+        } catch (InputMismatchException e) {
+            return -1;
+        }
+    }
+
+    private static void printAdministratorMenu() {
+        Menu.printAdministratorMenu();
+        int option = pickOption();
+        while (option != 0) {
+            switch (option) {
                 case 1:
                     clientDAO.createClient(Menu.registerClient());
                     break;
@@ -92,24 +111,26 @@ public class Main {
                     break;
 
             }
-            Menu.printMenu();
+            Menu.printAdministratorMenu();
             option = pickOption();
         }
-
-
     }
-    private static int pickOption()
-    {
-        boolean ok = true;
-        int result = -1;
-        Scanner scanner = new Scanner(System.in);
-            try {
-                result = scanner.nextInt();
-                return result;
+
+    private static void printClientMenu() {
+        Menu.printClientMenu();
+        int option = pickOption();
+        while (option != 0) {
+            switch (option) {
+                case 1 -> clientDAO.createClient(Menu.registerClient());
+                case 2 -> carDAO.createCar(Menu.registerCar());
+                case 3 -> Menu.displayAllCars(carDAO);
+                case 4 -> reviewDAO.createReview(Menu.registerReview());
+                case 5 -> Menu.displayAllReviews(reviewDAO);
+                case 6 -> System.out.println(carDAO.findAllAvailableCars());
+                case 7 -> rentDAO.createRent(Menu.registerRent(carDAO, clientDAO));
             }
-            catch (InputMismatchException e)
-            {
-                return -1;
-            }
+            Menu.printClientMenu();
+            option = pickOption();
+        }
     }
 }

@@ -7,7 +7,6 @@ import org.example.reviews.Review;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -142,5 +141,16 @@ public class Rent {
     @Override
     public int hashCode() {
         return Objects.hash(nrComanda);
+    }
+
+    @Override
+    public String toString() {
+        return "Rent{" +
+                "nrComanda=" + nrComanda +
+                ", car=" + car +
+                ", client=" + client +
+                ", price=" + price +
+                ", stare='" + stare + '\'' +
+                '}';
     }
 }

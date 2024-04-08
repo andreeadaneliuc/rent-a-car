@@ -107,6 +107,8 @@ public class Main {
                 case 8:
                     rentDAO.createRent(Menu.registerRent(carDAO, clientDAO));
                     break;
+                case 9:
+                    Menu.deleteClient(clientDAO);
                 default:
                     break;
 
@@ -128,6 +130,7 @@ public class Main {
                 case 5 -> Menu.displayAllReviews(reviewDAO);
                 case 6 -> System.out.println(carDAO.findAllAvailableCars());
                 case 7 -> rentDAO.createRent(Menu.registerRent(carDAO, clientDAO));
+                case 8 -> Menu.deleteReview(reviewDAO, clientDAO);
             }
             Menu.printClientMenu();
             option = pickOption();

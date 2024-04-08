@@ -3,10 +3,11 @@ package org.example.reviews;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.example.cars.Car;
+import org.example.rents.Rent;
 
 import java.util.List;
-//import org.example.clients.Client;
+import java.util.Set;
+
 
 public class ReviewDAO {
 
@@ -22,8 +23,6 @@ public class ReviewDAO {
             entityManager.getTransaction().begin();
             entityManager.merge(review);
             entityManager.getTransaction().commit();
-
-
 
         } finally {
             if (entityManager.isOpen()) {
@@ -70,6 +69,18 @@ public class ReviewDAO {
         stringBuilder.append("SELECT r").append(" FROM Review r");
         String hql = stringBuilder.toString();
         List<Review> review = entityManager.createQuery(hql, Review.class)
+                .getResultList();
+        entityManager.close();
+        return review;
+    }
+
+    public List<Review> findAllReviewsByClient(Rent rent) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT r").append(" FROM Review r WHERE r.rent.nrComanda = :numar");
+        String hql = stringBuilder.toString();
+        List<Review> review = entityManager.createQuery(hql, Review.class)
+                .setParameter("numar", rent.getNrComanda())
                 .getResultList();
         entityManager.close();
         return review;

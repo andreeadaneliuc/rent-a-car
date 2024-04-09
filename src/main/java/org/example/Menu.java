@@ -105,7 +105,9 @@ public class Menu {
     }
 
     public static void displayAllClients(ClientDAO clientDAO) {
-        System.out.println(clientDAO.findAllClients().toString());
+        for(Client client: clientDAO.findAllClients()){
+            System.out.println(client);
+        }
     }
 
     //Option 3
@@ -132,7 +134,10 @@ public class Menu {
     }
 
     public static void displayAllCars(CarDAO carDAO) {
-        System.out.println(carDAO.findAllCars().toString());
+        for(Car car: carDAO.findAllCars())
+        {
+            System.out.println(car);
+        }
 
     }
 
@@ -164,7 +169,9 @@ public class Menu {
 
     //Option 6
     public static void displayAllReviews(ReviewDAO reviewDAO) {
-        System.out.println(reviewDAO.findAllReviews().toString());
+        for(Review review:  reviewDAO.findAllReviews()){
+            System.out.println(review);
+        }
 
     }
 
@@ -209,6 +216,13 @@ public class Menu {
         String cnpScanat = Menu.scanareNext();
         if (Client.isCnpValid(cnpScanat)) {
             if (clientDAO.findClientByCnp(cnpScanat) != null) {
+                for (Rent rent: clientDAO.findClientByCnp(cnpScanat).getRentsSet())
+                {
+                    RentDAO rentDAO = new RentDAO();
+                    rent.setClient(null);
+                    rentDAO.updateRent(rent);
+                }
+
                 clientDAO.deleteClient(clientDAO.findClientByCnp(cnpScanat));
                 System.out.println("Clientul a fost sters cu succes!");
             } else {
@@ -234,7 +248,8 @@ public class Menu {
                 System.out.println("Alegeti review-ul pe care doriti sa il stergeti: ");
                 Scanner scanner = new Scanner(System.in);
                 try {
-                    reviewDAO.deleteReview(reviewDAO.getReviewByNrComanda(client.getRentsSet().stream().toList().get(scanner.nextInt()).getNrComanda()));
+                    Review review = reviewDAO.findReviewByNrComanda(client.getRentsSet().stream().toList().get(scanner.nextInt()));
+                    reviewDAO.deleteReview(review);
                     System.out.println("Review-ul ales a fost sters.");
                 } catch (IllegalArgumentException e) {
                     System.out.println("Numarul introdus este gresit.");

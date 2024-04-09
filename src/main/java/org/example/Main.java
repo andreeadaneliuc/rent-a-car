@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.cars.Car;
 import org.example.cars.CarDAO;
 import org.example.clients.ClientDAO;
 import org.example.rents.RentDAO;
@@ -102,7 +103,9 @@ public class Main {
                     Menu.displayAllReviews(reviewDAO);
                     break;
                 case 7:
-                    System.out.println(carDAO.findAllAvailableCars());
+                    for(Car car : carDAO.findAllAvailableCars()){
+                        System.out.println(car);
+                    }
                     break;
                 case 8:
                     rentDAO.createRent(Menu.registerRent(carDAO, clientDAO));

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CarDAO {
 
-    private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
+    private EntityManagerFactory entityManagerFactory ;
 
     public CarDAO(){
         this.entityManagerFactory = Persistence.createEntityManagerFactory("name");

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ClientDAO {
 
-    private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
+    private EntityManagerFactory entityManagerFactory ;
 
     public ClientDAO(){
         this.entityManagerFactory = Persistence.createEntityManagerFactory("name");

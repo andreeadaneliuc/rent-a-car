@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RentDAO {
 
-    private EntityManagerFactory entityManagerFactory = HibernateUtils.getSessionFactory();
+    private EntityManagerFactory entityManagerFactory;
 
     public RentDAO(){
         this.entityManagerFactory = Persistence.createEntityManagerFactory("name");

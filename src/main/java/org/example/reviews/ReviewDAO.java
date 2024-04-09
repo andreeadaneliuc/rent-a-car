@@ -33,11 +33,13 @@ public class ReviewDAO {
 
     public Review getReviewByNrComanda(Long nrComanda) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Review toBeSent;
         try {
-            return entityManager.find(Review.class, nrComanda);
+            toBeSent = entityManager.find(Review.class, nrComanda);
         } finally {
             entityManager.close();
         }
+        return toBeSent;
     }
 
     public void updateReview(Review review){
@@ -84,5 +86,22 @@ public class ReviewDAO {
                 .getResultList();
         entityManager.close();
         return review;
+    }
+    public Review findReviewByNrComanda(Rent nrComanda) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT r").append(" FROM Review r WHERE r.rent = :numar");
+        String hql = stringBuilder.toString();
+        List<Review> review = entityManager.createQuery(hql, Review.class)
+                .setParameter("numar", nrComanda)
+                .getResultList();
+        entityManager.close();
+        try {
+            return review.get(0);
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            return null;
+        }
     }
 }
